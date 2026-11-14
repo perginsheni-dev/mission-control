@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mission Control – Spacecraft Design Game</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="sky" aria-hidden="true"></div>
+<header>
+  <h1>🛰️ Space Mission Control</h1>
+  <button id="run" class="primary">🚀 Run mission</button>
+</header>
+<main>
+  <section class="card" aria-labelledby="h-mission">
+    <h2 id="h-mission">1 · Choose a mission</h2>
+    <div id="missions" class="missions" role="radiogroup" aria-label="Mission"></div>
+    <p id="brief" class="muted"></p>
+    <ul id="reqs" class="muted small"></ul>
+  </section>
+
+  <section class="card" aria-labelledby="h-design">
+    <h2 id="h-design">2 · Configure spacecraft</h2>
+    <fieldset><legend>☀️ Solar panels</legend><div id="panels" class="choices" role="radiogroup"></div></fieldset>
+    <fieldset><legend>🔋 Battery</legend><div id="batteries" class="choices" role="radiogroup"></div></fieldset>
+    <fieldset><legend>📡 Antenna &amp; communication range</legend><div id="comms" class="choices" role="radiogroup"></div></fieldset>
+    <fieldset><legend>⛽ Fuel tank</legend><div id="fuel" class="choices" role="radiogroup"></div></fieldset>
+    <fieldset><legend>🚀 3 · Rocket size</legend><div id="launcher" class="choices" role="radiogroup"></div></fieldset>
+    <fieldset><legend>Science instruments</legend><div id="instruments" class="checks"></div></fieldset>
+  </section>
+
+  <section class="card" aria-labelledby="h-tel">
+    <h2 id="h-tel">Live telemetry</h2>
+    <div id="telemetry" class="tel" aria-live="polite"></div>
+    <ul id="live-problems" class="problems"></ul>
+  </section>
+
+  <section class="card" id="result" hidden aria-live="polite" tabindex="-1"></section>
+
+  <section class="card" aria-labelledby="h-eyes">
+    <h2 id="h-eyes">Mission ideas · NASA Eyes on the Solar System</h2>
+    <p><a id="eyes-link" href="https://eyes.nasa.gov/apps/solar-system/" target="_blank" rel="noopener">Open Eyes on the Solar System</a>
+      · <a href="https://x.com/nasa_eyes" target="_blank" rel="noopener">@nasa_eyes on X</a></p>
+  </section>
+
+  <section class="card" aria-labelledby="h-data">
+    <h2 id="h-data">NASA Open Data <span class="tag" id="data-state"></span></h2>
+    <p class="muted small">Catalog <em>metadata</em> from <a href="https://data.nasa.gov/data.json" target="_blank" rel="noopener">data.nasa.gov/data.json</a>. These are descriptions of datasets; follow the links for the actual data.</p>
+    <div id="datasets" class="list"></div>
+  </section>
+
+  <section class="card" aria-labelledby="h-code">
+    <h2 id="h-code">NASA open-source software <span class="tag" id="code-state"></span></h2>
+    <p class="muted small">From the <a href="https://code.nasa.gov" target="_blank" rel="noopener">official NASA Software Catalog</a> (<a href="https://github.com/nasa/Open-Source-Catalog/blob/master/code.json" target="_blank" rel="noopener">NASA Open-Source-Catalog code.json</a>, the federal code inventory).</p>
+    <div id="software" class="list"></div>
+  </section>
+
+  <section class="card" aria-labelledby="h-ee">
+    <h2 id="h-ee">Earth observation · Google Earth Engine</h2>
+    <p class="muted small">Dataset: <a href="https://developers.google.com/earth-engine/datasets/catalog/MODIS_061_MOD13Q1" target="_blank" rel="noopener">MODIS/061/MOD13Q1</a> (NASA MODIS vegetation indices, 250 m, 16-day). Mean NDVI over a region.</p>
+    <div class="form inline">
+      <label>Region <select id="region"></select></label>
+      <label>Year <input id="year" type="number" min="2001" max="2024" value="2023"></label>
+      <button id="ee-run">Query Earth Engine</button>
+    </div>
+    <div id="ee-out" class="muted"></div>
+    <details><summary>Earth Engine setup</summary>
+      <ol class="small">
+        <li>Create a Google Cloud project and <a href="https://console.cloud.google.com/apis/library/earthengine.googleapis.com" target="_blank" rel="noopener">enable the Earth Engine API</a>; <a href="https://earthengine.google.com/signup/" target="_blank" rel="noopener">register it for Earth Engine</a>.</li>
+        <li>Authenticate: <code>gcloud auth application-default login --scopes=https://www.googleapis.com/auth/earthengine,https://www.googleapis.com/auth/cloud-platform</code></li>
+        <li>Set environment variables (never commit them), then restart the server:<br><code>$env:EE_PROJECT="your-project-id"</code><br><code>$env:EE_ACCESS_TOKEN=(gcloud auth application-default print-access-token)</code></li>
+      </ol>
+    </details>
+  </section>
+</main>
+<footer class="muted small">Game values (capacities, costs) are illustrative. Not affiliated with or endorsed by NASA.</footer>
+<script type="module" src="app.js"></script>
+</body>
+</html>
