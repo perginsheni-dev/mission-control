@@ -1,4 +1,9 @@
 node_modules/
+dist/
+*.tsbuildinfo
+vite.config.js
+vite.config.d.ts
+__pycache__/
 .env
 .env.*
 30s glory video.mp4
